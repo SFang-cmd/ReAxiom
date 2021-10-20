@@ -38,6 +38,10 @@ public class DriveBase extends SubsystemBase {
     public SpeedControllerGroup leftMotorGroup;
 	public SpeedControllerGroup rightMotorGroup;
 	
+	// Encoder value programming
+	public double leftEncoderValue;
+	public double rightEncoderValue;
+
 	// Gyro initializing
 	public ADXRS450_Gyro gyroBoi;
 	
@@ -45,22 +49,29 @@ public class DriveBase extends SubsystemBase {
 	// public static final SPI.Port gyroPort = SPI.Port.kOnboardCS0;
 
     public DriveBase(){
-        setName("DriveBase");
+		// required for Subsystems and commands as a way to tell program who do communicate with
+		setName("DriveBase");
 
+		// Declares the instantiated variables that store the motor controller objects
+		// Setting left motors to their respective motor objects
         this.leftMiddleMaster = new WPI_TalonSRX(RobotMap.leftMiddleMasterPort);
-
         this.leftFrontMotor = new WPI_VictorSPX(RobotMap.leftFrontFollower);
         this.leftBackMotor = new WPI_VictorSPX(RobotMap.leftBackFollower);
-        
-        this.rightMiddleMaster = new WPI_TalonSRX(RobotMap.rightMiddleMasterPort);
-        
+		
+		// Setting right motors to their respective motor objects
+        this.rightMiddleMaster = new WPI_TalonSRX(RobotMap.rightMiddleMasterPort);        
         this.rightFrontMotor = new WPI_VictorSPX(RobotMap.rightFrontFollower);
         this.rightBackMotor = new WPI_VictorSPX(RobotMap.rightBackFollower);
         
         this.leftMotorGroup = new SpeedControllerGroup(leftMiddleMaster, leftFrontMotor, leftBackMotor);
         this.rightMotorGroup = new SpeedControllerGroup(rightMiddleMaster, rightFrontMotor, rightBackMotor);
 
+		// Building the actual robot drive train
 		DifferentialDrive tank = new DifferentialDrive(leftMotorGroup, rightMotorGroup);
+		
+		// Setting up and getting the encoder values
+		this.leftEncoderValue = leftMiddleMaster.getSelectedSensorPosition(0);
+		this.rightEncoderValue = rightMiddleMaster.getSelectedSensorPosition(0);
 		
 		// Gyro with SPI.Port.kOnboardCS0 being the port enum that is provided by WPILib
 		this.gyroBoi = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
@@ -70,27 +81,61 @@ public class DriveBase extends SubsystemBase {
 		// Might not work, check when working with robot
 		gyroBoi.calibrate();
     }
-
+	
+	/**
+	 * A manual way to set the motor speeds on the drivetrain
+	 * @param leftSide - motor velocity for the left side (from -1 to 1)
+	 * @param rightSide - motor velocity for the right side (from -1 to 1)
+	 */
     public void setSpeed(double leftSide, double rightSide){
         leftMotorGroup.set(leftSide);
         rightMotorGroup.set(rightSide);
     }
-
-
+	
+	/**
+	 * Stops the motors from running
+	 */
     public void stopMotors(){
 		leftMotorGroup.set(0);
 		rightMotorGroup.set(0);
-	}
+	}	
 	
-	// Add gyro methods
-
+	/**
+	 * resets the Gyro to 0
+	 */
 	public void resetGyroAngle(){
 		gyroBoi.reset();
 	}
-
+	
+	/**
+	 * Gets the gyro angle relative to the last point of reset
+	 * @return Returns the angle deviating from the last reset angle
+	 */
 	public double getGyroAngle(){
 		return gyroBoi.getAngle();
 	}
+	
+	/**
+	 * Recalibrates the both encoders so that the sensor positions are correct again
+	 */
+	public void reCalibrateEncoders(){
+		this.leftEncoderValue = leftMiddleMaster.getSelectedSensorPosition(0);
+		this.rightEncoderValue = rightMiddleMaster.getSelectedSensorPosition(0);		
+	}
 
-	public 
+	/**
+	 * Finds the current encoder position of the left encoder
+	 * @return Returns the difference between where the sensor is now to where the sensor was at the previous calibration
+	 */
+	public double getLeftEncoder(){
+		return leftMiddleMaster.getSelectedSensorPosition(0) - leftEncoderValue;
+	}
+
+	/**
+	 * Finds the current encoder position of the right encoder
+	 * @return Returns the difference between where the sensor is now to where the sensor was at the previous calibration
+	 */
+	public double getRightEncoder(){
+		return rightMiddleMaster.getSelectedSensorPosition(0) - rightEncoderValue;
+	}
 }
