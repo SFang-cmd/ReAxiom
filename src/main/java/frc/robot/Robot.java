@@ -5,6 +5,12 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj2.command.CommandGroupBase;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+
+import frc.robot.commands.*;
+import frc.robot.subsystems.Subsystems;
+import frc.robot.userinterface.UserInterface;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -13,30 +19,51 @@ import edu.wpi.first.wpilibj.TimedRobot;
  * project.
  */
 public class Robot extends TimedRobot {
+  
+  public Robot(){
+    super(0.06);
+  }
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
    */
   @Override
-  public void robotInit() {}
+  public void robotInit() {
+    
+    CommandScheduler.getInstance().setDefaultCommand(Subsystems.driveBase, new TankDrive());
+  }
 
   @Override
-  public void robotPeriodic() {}
+  public void robotPeriodic() {
+    CommandScheduler.getInstance().run();
+  }
 
   @Override
-  public void autonomousInit() {}
+  public void autonomousInit() {
+    System.out.println("Autonomous Initalized");
+    CommandScheduler.getInstance().cancelAll();
+  }
 
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() {
+
+  }
 
   @Override
-  public void teleopInit() {}
+  public void teleopInit() {
+    System.out.println("TeleOp Initalized");
+    CommandScheduler.getInstance().cancelAll();
+  }
 
   @Override
   public void teleopPeriodic() {}
 
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+    System.out.println("Disabled Initialized");
+    CommandScheduler.getInstance().cancelAll();
+  }
 
   @Override
   public void disabledPeriodic() {}

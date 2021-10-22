@@ -9,22 +9,22 @@ public class RobotMap {
 
     // motor port numbers
     // Left side motor port numbers
-    public static int leftMiddleMasterPort = 1;
+    public static int leftMiddleMasterPort = 2;
 
-    public static int leftFrontFollower = 2;
-    public static int leftBackFollower = 3;
+    public static int leftFrontFollower = 3;
+    public static int leftBackFollower = 6;
     
     // Right side motor port numbers
-    public static int rightMiddleMasterPort = 4;
+    public static int rightMiddleMasterPort = 14;
     
     public static int rightFrontFollower = 5;
-    public static int rightBackFollower = 6;
+    public static int rightBackFollower = 4;
     
     // Intake stuff
-    public static int intakePivot = 46;
-    public static int intakeLeftArm = 9;
-    public static int intakeRightArm = 10;
-    public static int lift = 11;
+    // public static int intakePivot = 46;
+    // public static int intakeLeftArm = 9;
+    // public static int intakeRightArm = 10;
+    // public static int lift = 11;
 
 
 }
