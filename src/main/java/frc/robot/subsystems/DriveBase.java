@@ -44,6 +44,9 @@ public class DriveBase extends SubsystemBase {
 
 	// Gyro initializing
 	public ADXRS450_Gyro gyroBoi;
+
+	// Creating tankDrive instance
+	public DifferentialDrive tank;
 	
 	// In case declaring the enum doesn't work directly in the gyro contructor:
 	// public static final SPI.Port gyroPort = SPI.Port.kOnboardCS0;
@@ -67,7 +70,7 @@ public class DriveBase extends SubsystemBase {
         this.rightMotorGroup = new SpeedControllerGroup(rightMiddleMaster, rightFrontMotor, rightBackMotor);
 
 		// Building the actual robot drive train
-		DifferentialDrive tank = new DifferentialDrive(leftMotorGroup, rightMotorGroup);
+		this.tank = new DifferentialDrive(leftMotorGroup, rightMotorGroup);
 		
 		// Setting up and getting the encoder values
 		this.leftEncoderValue = leftMiddleMaster.getSelectedSensorPosition(0);
