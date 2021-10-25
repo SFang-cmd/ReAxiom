@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 public class RumbleXboxController extends XboxController{
     
-    private Joystick joystick;
+    public Joystick joystick;
     public final JoystickButton A, B, X, Y, LB, RB, LS, RS;
     
     public RumbleXboxController(int port){

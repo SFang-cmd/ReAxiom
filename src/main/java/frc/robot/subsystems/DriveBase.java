@@ -1,4 +1,5 @@
 package frc.robot.subsystems;
+
 import frc.robot.RobotMap;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -84,7 +85,7 @@ public class DriveBase extends SubsystemBase {
 		// Might not work, check when working with robot
 		gyroBoi.calibrate();
     }
-	
+
 	/**
 	 * A manual way to set the motor speeds on the drivetrain
 	 * @param leftSide - motor velocity for the left side (from -1 to 1)

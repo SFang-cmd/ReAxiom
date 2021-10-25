@@ -29,9 +29,8 @@ public class Robot extends TimedRobot {
    * initialization code.
    */
   @Override
-  public void robotInit() {
-    
-    CommandScheduler.getInstance().setDefaultCommand(Subsystems.driveBase, new TankDrive());
+  public void robotInit() {    
+    Subsystems.driveBase.setDefaultCommand(new TankDrive());
   }
 
   @Override

@@ -21,6 +21,7 @@ public class TankDrive extends CommandBase{
 
     public TankDrive(){
         setName("TankDrive");
+        addRequirements(Subsystems.driveBase);
 
         this.leftSpeed = 0;
         this.rightSpeed = 0;
