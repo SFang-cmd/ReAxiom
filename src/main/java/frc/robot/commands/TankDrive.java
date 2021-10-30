@@ -47,9 +47,9 @@ public class TankDrive extends CommandBase{
             rightSpeed = 0;
         }
 
-        leftSpeedDiff = leftSpeed - leftLastSpeed;
-        rightSpeedDiff = rightSpeed - rightLastSpeed;
-
+        // leftSpeedDiff = leftSpeed - leftLastSpeed;
+        // rightSpeedDiff = rightSpeed - rightLastSpeed;
+        
         // Old acceleration cap basically checked if the speed was over the max change distance,
         // but I wanted to make just one equationto do that, hence the following:
         // Needs more work (doesn't work so don't uncomment without fixing)
@@ -57,11 +57,11 @@ public class TankDrive extends CommandBase{
         // rightSpeed = rightLastSpeed + (Math.exp(((-1)*accelSens*rightSpeedDiff)-0.7) + maxAccel);
 
         // Old acceleration but with a ternary operator to simplify it
-        leftSpeed = Math.abs(leftSpeedDiff) > maxAccel ? leftLastSpeed + (Math.abs(leftSpeedDiff)/leftSpeedDiff)*maxAccel : leftSpeed;
-        rightSpeed = Math.abs(rightSpeedDiff) > maxAccel ? rightLastSpeed + (Math.abs(rightSpeedDiff)/rightSpeedDiff)*maxAccel : rightSpeed;
+        // leftSpeed = Math.abs(leftSpeedDiff) > maxAccel ? leftLastSpeed + (Math.abs(leftSpeedDiff)/leftSpeedDiff)*maxAccel : leftSpeed;
+        // rightSpeed = Math.abs(rightSpeedDiff) > maxAccel ? rightLastSpeed + (Math.abs(rightSpeedDiff)/rightSpeedDiff)*maxAccel : rightSpeed;
 
-        leftLastSpeed = leftSpeed;
-        rightLastSpeed = rightSpeed;
+        // leftLastSpeed = leftSpeed;
+        // rightLastSpeed = rightSpeed;
 
         Subsystems.driveBase.tank.tankDrive(leftSpeed, rightSpeed, true);
     }
