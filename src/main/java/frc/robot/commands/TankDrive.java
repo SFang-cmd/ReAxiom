@@ -6,6 +6,8 @@ import frc.robot.userinterface.UserInterface;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
+import java.lang.Math;
+
 public class TankDrive extends CommandBase{
 
     public double leftSpeed;
@@ -47,8 +49,8 @@ public class TankDrive extends CommandBase{
             rightSpeed = 0;
         }
 
-        // leftSpeedDiff = leftSpeed - leftLastSpeed;
-        // rightSpeedDiff = rightSpeed - rightLastSpeed;
+        leftSpeedDiff = leftSpeed - leftLastSpeed;
+        rightSpeedDiff = rightSpeed - rightLastSpeed;
         
         // Old acceleration cap basically checked if the speed was over the max change distance,
         // but I wanted to make just one equationto do that, hence the following:
@@ -57,11 +59,11 @@ public class TankDrive extends CommandBase{
         // rightSpeed = rightLastSpeed + (Math.exp(((-1)*accelSens*rightSpeedDiff)-0.7) + maxAccel);
 
         // Old acceleration but with a ternary operator to simplify it
-        // leftSpeed = Math.abs(leftSpeedDiff) > maxAccel ? leftLastSpeed + (Math.abs(leftSpeedDiff)/leftSpeedDiff)*maxAccel : leftSpeed;
-        // rightSpeed = Math.abs(rightSpeedDiff) > maxAccel ? rightLastSpeed + (Math.abs(rightSpeedDiff)/rightSpeedDiff)*maxAccel : rightSpeed;
+        leftSpeed = Math.abs(leftSpeedDiff) > maxAccel ? leftLastSpeed + Math.signum(leftSpeedDiff)*maxAccel : leftSpeed;
+        rightSpeed = Math.abs(rightSpeedDiff) > maxAccel ? rightLastSpeed + Math.signum(rightSpeedDiff)*maxAccel : rightSpeed;
 
-        // leftLastSpeed = leftSpeed;
-        // rightLastSpeed = rightSpeed;
+        leftLastSpeed = leftSpeed;
+        rightLastSpeed = rightSpeed;
 
         Subsystems.driveBase.tank.tankDrive(leftSpeed, rightSpeed, true);
     }

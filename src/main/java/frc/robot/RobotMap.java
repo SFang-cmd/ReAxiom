@@ -6,6 +6,9 @@ public class RobotMap {
     
     // Speed controls
     public static double speedCap = 0;
+    
+    // Robot Dimensions
+    public static double wheelDiameter = 7;
 
     // motor port numbers
     // Left side motor port numbers
@@ -26,5 +29,16 @@ public class RobotMap {
     // public static int intakeRightArm = 10;
     // public static int lift = 11;
 
+    // Dimensions for Vision Calculations
+    public static double cameraHeightMeters = 0.25;
+    public static double ballHeightMeters = 0.1;
+    public static double cameraDegreesHoriz = 0;
 
+    /**
+     * @param inches Inches to convert.
+     * @return The equivalent distance in ticks (units for Talon Encoders).
+     */
+    public static double convertToTicks(double inches) {
+        return (4096 / (wheelDiameter * 3.1415926) * inches);
+    }
 }

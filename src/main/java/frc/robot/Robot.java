@@ -5,10 +5,11 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj2.command.CommandGroupBase;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 import frc.robot.commands.*;
+import frc.robot.commands.vision.*;
 import frc.robot.subsystems.Subsystems;
 import frc.robot.userinterface.UserInterface;
 
@@ -20,56 +21,62 @@ import frc.robot.userinterface.UserInterface;
  */
 public class Robot extends TimedRobot {
   
-  public Robot(){
-    super(0.06);
-  }
+	public Robot(){
+    	super(0.06);
+	}
 
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
    */
-  @Override
-  public void robotInit() {    
-    Subsystems.driveBase.setDefaultCommand(new TankDrive());
-  }
+  	@Override
+	public void robotInit() {    
+		Subsystems.driveBase.setDefaultCommand(new TankDrive());
+
+		// Might need to be moved to teleopPeriodic in order to function, but it might also work here.
+		UserInterface.driverController.A.whenHeld(new RotateToBall());
+		UserInterface.driverController.B.whenHeld(new AutoIntakeBall());
+  	}
+
+	@Override
+  	public void robotPeriodic() {
+    	CommandScheduler.getInstance().run();
+  	}
+
+	@Override
+	public void autonomousInit() {
+		System.out.println("Autonomous Initalized");
+    	CommandScheduler.getInstance().cancelAll();
+	}
+
+	@Override
+	public void autonomousPeriodic() {
+
+	}
+
+	@Override
+	public void teleopInit() {
+		System.out.println("TeleOp Initalized");
+		CommandScheduler.getInstance().cancelAll();
+	}
 
   @Override
-  public void robotPeriodic() {
-    CommandScheduler.getInstance().run();
-  }
+	public void teleopPeriodic() {
+		// Might be janky
+	}
 
   @Override
-  public void autonomousInit() {
-    System.out.println("Autonomous Initalized");
-    CommandScheduler.getInstance().cancelAll();
-  }
+	public void disabledInit() {
+		System.out.println("Disabled Initialized");
+	    CommandScheduler.getInstance().cancelAll();
+	}
 
-  @Override
-  public void autonomousPeriodic() {
+	@Override
+	public void disabledPeriodic() {}
 
-  }
+	@Override
+	public void testInit() {}
 
-  @Override
-  public void teleopInit() {
-    System.out.println("TeleOp Initalized");
-    CommandScheduler.getInstance().cancelAll();
-  }
-
-  @Override
-  public void teleopPeriodic() {}
-
-  @Override
-  public void disabledInit() {
-    System.out.println("Disabled Initialized");
-    CommandScheduler.getInstance().cancelAll();
-  }
-
-  @Override
-  public void disabledPeriodic() {}
-
-  @Override
-  public void testInit() {}
-
-  @Override
-  public void testPeriodic() {}
+	@Override
+	public void testPeriodic() {}
 }

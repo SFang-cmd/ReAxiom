@@ -54,7 +54,7 @@ public class DriveBase extends SubsystemBase {
 
     public DriveBase(){
 		// required for Subsystems and commands as a way to tell program who do communicate with
-		setName("DriveBase");
+		setSubsystem("DriveBase");
 
 		// Declares the instantiated variables that store the motor controller objects
 		// Setting left motors to their respective motor objects
@@ -65,7 +65,14 @@ public class DriveBase extends SubsystemBase {
 		// Setting right motors to their respective motor objects
         this.rightMiddleMaster = new WPI_TalonSRX(RobotMap.rightMiddleMasterPort);        
         this.rightFrontMotor = new WPI_VictorSPX(RobotMap.rightFrontFollower);
-        this.rightBackMotor = new WPI_VictorSPX(RobotMap.rightBackFollower);
+		this.rightBackMotor = new WPI_VictorSPX(RobotMap.rightBackFollower);
+		
+		// Since we use the same type of motors, both think that front is clockwise,
+		// but on the left side, the clockwise rotation causes it to move backward,
+		// thus inverting it causes both motors to move in the correct way
+		leftMiddleMaster.setInverted(true);
+		leftFrontMotor.setInverted(true);
+		leftBackMotor.setInverted(true);
         
         this.leftMotorGroup = new SpeedControllerGroup(leftMiddleMaster, leftFrontMotor, leftBackMotor);
         this.rightMotorGroup = new SpeedControllerGroup(rightMiddleMaster, rightFrontMotor, rightBackMotor);
@@ -120,7 +127,7 @@ public class DriveBase extends SubsystemBase {
 	}
 	
 	/**
-	 * Recalibrates the both encoders so that the sensor positions are correct again
+	 * Recalibrates both encoders to compare with future encoder positions
 	 */
 	public void reCalibrateEncoders(){
 		this.leftEncoderValue = leftMiddleMaster.getSelectedSensorPosition(0);
