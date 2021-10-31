@@ -41,4 +41,21 @@ public class RobotMap {
     public static double convertToTicks(double inches) {
         return (4096 / (wheelDiameter * 3.1415926) * inches);
     }
+
+    /**
+     * 
+     * @param value the arbitrary amount inputted
+     * @param min value can't be smaller than min
+     * @param max value can't be larger tahn max
+     * @return returns the cap if the value is too large/small, but will default to value if it does not reach the cap
+     */
+    public static double cap(double value, double min, double max){
+
+        if(value < min){
+            return min;
+        } else if (value > max){
+            return max;
+        }
+        return value;
+    }
 }
