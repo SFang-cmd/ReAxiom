@@ -62,6 +62,9 @@ public class Robot extends TimedRobot {
   @Override
 	public void teleopPeriodic() {
 		// Might be janky
+		if(UserInterface.driverController.getAButton()){
+			Subsystems.frontCam.snapshot(true);
+		}
 	}
 
   @Override

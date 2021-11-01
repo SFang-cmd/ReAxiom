@@ -29,4 +29,12 @@ public class PhotonCam extends SubsystemBase {
         }
     }
 
+    public void snapshot(boolean processed){
+        if(processed){
+            frontCam.takeOutputSnapshot();
+        } else {
+            frontCam.takeInputSnapshot();
+        }
+    }
+
 }
