@@ -34,6 +34,7 @@ public class RotateToBall extends CommandBase {
         // Better method, change the cap amounts after we fiddle with it
         speed = RobotMap.speedCap*RobotMap.cap(xPos, -40, 40)/40;
         Subsystems.driveBase.tank.tankDrive(speed, -speed);
+        Subsystems.frontCam.getAll();
     }
 
     public boolean isFinished(){

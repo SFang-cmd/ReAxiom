@@ -33,7 +33,7 @@ public class DriveBase extends SubsystemBase {
     // declaring the motors for the right side
     public WPI_TalonSRX rightMiddleMaster;
 
-    public WPI_VictorSPX rightFrontMotor;
+    public WPI_TalonSRX rightFrontMotor;
     public WPI_VictorSPX rightBackMotor;
 
     public SpeedControllerGroup leftMotorGroup;
@@ -64,7 +64,7 @@ public class DriveBase extends SubsystemBase {
 		
 		// Setting right motors to their respective motor objects
         this.rightMiddleMaster = new WPI_TalonSRX(RobotMap.rightMiddleMasterPort);        
-        this.rightFrontMotor = new WPI_VictorSPX(RobotMap.rightFrontFollower);
+        this.rightFrontMotor = new WPI_TalonSRX(RobotMap.rightFrontFollower);
 		this.rightBackMotor = new WPI_VictorSPX(RobotMap.rightBackFollower);
 		
 		// Since we use the same type of motors, both think that front is clockwise,
