@@ -4,37 +4,21 @@
 
 package frc.robot;
 
+// We'll give you these imports, but are there any other imports that you need?
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
-import frc.robot.commands.*;
-import frc.robot.commands.vision.*;
-import frc.robot.subsystems.Subsystems;
-import frc.robot.userinterface.UserInterface;
-
-/**
- * The VM is configured to automatically run this class, and to call the functions corresponding to
- * each mode, as described in the TimedRobot documentation. If you change the name of this class or
- * the package after creating this project, you must also update the build.gradle file in the
- * project.
- */
 public class Robot extends TimedRobot {
   
 	public Robot(){
     	super(0.08);
 	}
 
-  /**
-   * This function is run when the robot is first started up and should be used for any
-   * initialization code.
-   */
   	@Override
 	public void robotInit() {    
-		Subsystems.driveBase.setDefaultCommand(new TankDrive());
-
-		// Might need to be moved to teleopPeriodic in order to function, but it might also work here.
-		UserInterface.driverController.A.whenHeld(new RotateToBall());
-		UserInterface.driverController.B.whenHeld(new AutoIntakeBall());
+		/**
+		 * What kind of things do we need to declare here? How does the robot know what is the drive commands?
+		 */
   	}
 
 	@Override
@@ -61,10 +45,10 @@ public class Robot extends TimedRobot {
 
   @Override
 	public void teleopPeriodic() {
-		// Might be janky
-		if(UserInterface.driverController.getAButton()){
-			Subsystems.frontCam.snapshot(true);
-		}
+		/**
+		 * Do we need to do anything here? What would go here?
+		 */
+
 	}
 
   @Override

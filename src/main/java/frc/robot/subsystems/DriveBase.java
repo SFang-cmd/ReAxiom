@@ -22,131 +22,26 @@ public class DriveBase extends SubsystemBase {
     0|-_________-|0
     
     */
-
-    // 
-    // Declaring the motors for the left side
-    public WPI_TalonSRX leftMiddleMaster;
-    
-    public WPI_VictorSPX leftFrontMotor;
-    public WPI_VictorSPX leftBackMotor;
-    
-    // declaring the motors for the right side
-    public WPI_TalonSRX rightMiddleMaster;
-
-    public WPI_VictorSPX rightFrontMotor;
-    public WPI_VictorSPX rightBackMotor;
-
-    public SpeedControllerGroup leftMotorGroup;
-	public SpeedControllerGroup rightMotorGroup;
 	
-	// Encoder value programming
-	public double leftEncoderValue;
-	public double rightEncoderValue;
+	/**
+	 * What kind of variables do we need here?
+	 * Hint: Think back to motor controllers.
+	 * Are there any sensors attached to this subsystem?
+	 * Create a differential drive instance. (you can name it anything you want/)
+	 * Remember it's okay to forget things that's what debugging is for. - Aaron Wang
+	 */
 
-	// Gyro initializing
-	public ADXRS450_Gyro gyroBoi;
-
-	// Creating tankDrive instance
-	public DifferentialDrive tank;
 	
-	// In case declaring the enum doesn't work directly in the gyro contructor:
-	// public static final SPI.Port gyroPort = SPI.Port.kOnboardCS0;
-
     public DriveBase(){
 		// required for Subsystems and commands as a way to tell program who do communicate with
 		setSubsystem("DriveBase");
 
-		// Declares the instantiated variables that store the motor controller objects
-		// Setting left motors to their respective motor objects
-        this.leftMiddleMaster = new WPI_TalonSRX(RobotMap.leftMiddleMasterPort);
-        this.leftFrontMotor = new WPI_VictorSPX(RobotMap.leftFrontFollower);
-        this.leftBackMotor = new WPI_VictorSPX(RobotMap.leftBackFollower);
-		
-		// Setting right motors to their respective motor objects
-        this.rightMiddleMaster = new WPI_TalonSRX(RobotMap.rightMiddleMasterPort);        
-        this.rightFrontMotor = new WPI_VictorSPX(RobotMap.rightFrontFollower);
-		this.rightBackMotor = new WPI_VictorSPX(RobotMap.rightBackFollower);
-		
-		// Since we use the same type of motors, both think that front is clockwise,
-		// but on the left side, the clockwise rotation causes it to move backward,
-		// thus inverting it causes both motors to move in the correct way
-		rightMiddleMaster.setInverted(true);
-		rightFrontMotor.setInverted(true);
-		rightBackMotor.setInverted(true);
-        
-        this.leftMotorGroup = new SpeedControllerGroup(leftMiddleMaster, leftFrontMotor, leftBackMotor);
-        this.rightMotorGroup = new SpeedControllerGroup(rightMiddleMaster, rightFrontMotor, rightBackMotor);
-
-		// Building the actual robot drive train
-		this.tank = new DifferentialDrive(leftMotorGroup, rightMotorGroup);
-		
-		// Setting up and getting the encoder values
-		this.leftEncoderValue = leftMiddleMaster.getSelectedSensorPosition(0);
-		this.rightEncoderValue = rightMiddleMaster.getSelectedSensorPosition(0);
-		
-		// Gyro with SPI.Port.kOnboardCS0 being the port enum that is provided by WPILib
-		this.gyroBoi = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
-		
-		// Built in check if the gyro is the correct one and it is connected
-		// System.out.println(gyroBoi.isConnected)
-		// Might not work, check when working with robot
-		gyroBoi.calibrate();
+		/**
+		 * What do we need to do now that we have our motor controller names declared?
+			 * How do we set the motor controllers that we just declared to their correct ports?
+			 * How do we set up bundles of these so its easier to control
+		 * How do we set grab the port numbers without having to copy a bunch of random numbers?
+		 * How do we set the mode of the differential drive?
+		 */
     }
-
-	/**
-	 * A manual way to set the motor speeds on the drivetrain
-	 * @param leftSide - motor velocity for the left side (from -1 to 1)
-	 * @param rightSide - motor velocity for the right side (from -1 to 1)
-	 */
-    public void setSpeed(double leftSide, double rightSide){
-        leftMotorGroup.set(leftSide);
-        rightMotorGroup.set(rightSide);
-    }
-	
-	/**
-	 * Stops the motors from running
-	 */
-    public void stopMotors(){
-		leftMotorGroup.set(0);
-		rightMotorGroup.set(0);
-	}	
-	
-	/**
-	 * resets the Gyro to 0
-	 */
-	public void resetGyroAngle(){
-		gyroBoi.reset();
-	}
-	
-	/**
-	 * Gets the gyro angle relative to the last point of reset
-	 * @return Returns the angle deviating from the last reset angle
-	 */
-	public double getGyroAngle(){
-		return gyroBoi.getAngle();
-	}
-	
-	/**
-	 * Recalibrates both encoders to compare with future encoder positions
-	 */
-	public void reCalibrateEncoders(){
-		this.leftEncoderValue = leftMiddleMaster.getSelectedSensorPosition(0);
-		this.rightEncoderValue = rightMiddleMaster.getSelectedSensorPosition(0);		
-	}
-
-	/**
-	 * Finds the current encoder position of the left encoder
-	 * @return Returns the difference between where the sensor is now to where the sensor was at the previous calibration
-	 */
-	public double getLeftEncoder(){
-		return leftMiddleMaster.getSelectedSensorPosition(0) - leftEncoderValue;
-	}
-
-	/**
-	 * Finds the current encoder position of the right encoder
-	 * @return Returns the difference between where the sensor is now to where the sensor was at the previous calibration
-	 */
-	public double getRightEncoder(){
-		return rightMiddleMaster.getSelectedSensorPosition(0) - rightEncoderValue;
-	}
 }

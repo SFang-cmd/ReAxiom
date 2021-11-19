@@ -1,71 +1,35 @@
 package frc.robot.commands;
 
-import frc.robot.RobotMap;
-import frc.robot.subsystems.Subsystems;
-import frc.robot.userinterface.UserInterface;
+/**
+ * Remember to check your imports! - Shreyas
+ */
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-import java.lang.Math;
-
 public class TankDrive extends CommandBase{
 
-    public double leftSpeed;
-    public double rightSpeed;
-    public double leftLastSpeed;
-    public double rightLastSpeed;
-    public double leftSpeedDiff;
-    public double rightSpeedDiff;
+	public double leftSpeed;
+	public double rightSpeed;
 
-    // public double accelSens = 5; //sensitivity for acceleration
-    // public double minAccel; // smallest amount needed for object to move, not really needed but cool to have 
-    public double maxAccel = 0.5; // maximum acceleration before it caps out
+	public TankDrive(){
+		setName("TankDrive");
 
-    public TankDrive(){
-        setName("TankDrive");
-        addRequirements(Subsystems.driveBase);
+        /**
+         * What subsystems do we need? How do we make this file use the subsystems that we require?
+		*/
 
-        this.leftSpeed = 0;
-        this.rightSpeed = 0;
-        this.leftLastSpeed = 0;
-        this.rightLastSpeed = 0;
-        this.leftSpeedDiff = 0;
-        this.rightSpeedDiff = 0;
-    }
+		/**
+         * How do we store the speed values for the different sides?
+         * What controllers should we be using?
+         * If you have question, read the documentation - words of wisdom from Sean Fang (or ask us)
+        */
+	}
 
-    public void execute(){
-        leftSpeed = UserInterface.driverController.getLeftJoystickY();
-        rightSpeed = UserInterface.driverController.getRightJoystickY();
-        
-        // minimium speed is the same for any speed cap right now, but if placed under conditionals, then different
-        // leftSpeed *= RobotMap.speedCap;
-        // rightSpeed *= RobotMap.speedCap;
-        
-        // if(Math.abs(leftSpeed) < 0.1){
-        //     leftSpeed = 0;
-        // }
-
-        // if(Math.abs(rightSpeed) < 0.1){
-        //     rightSpeed = 0;
-        // }
-
-        // leftSpeedDiff = leftSpeed - leftLastSpeed;
-        // rightSpeedDiff = rightSpeed - rightLastSpeed;
-        
-        // // Old acceleration cap basically checked if the speed was over the max change distance,
-        // // but I wanted to make just one equationto do that, hence the following:
-        // // Needs more work (doesn't work so don't uncomment without fixing)
-        // // leftSpeed = leftLastSpeed + (Math.exp(((-1)*accelSens*leftSpeedDiff)-0.7) + maxAccel);
-        // // rightSpeed = rightLastSpeed + (Math.exp(((-1)*accelSens*rightSpeedDiff)-0.7) + maxAccel);
-
-        // // Old acceleration but with a ternary operator to simplify it
-        // leftSpeed = Math.abs(leftSpeedDiff) > maxAccel ? leftLastSpeed + Math.signum(leftSpeedDiff)*maxAccel : leftSpeed;
-        // rightSpeed = Math.abs(rightSpeedDiff) > maxAccel ? rightLastSpeed + Math.signum(rightSpeedDiff)*maxAccel : rightSpeed;
-
-        // leftLastSpeed = leftSpeed;
-        // rightLastSpeed = rightSpeed;
-
-        Subsystems.driveBase.tank.tankDrive(leftSpeed, rightSpeed, true);
-    }
-
+	public void execute(){
+		/**
+		 * What controls do you need to use to move the robot?
+		 * How can we change the motor speed values to match the values that we want?
+         * If we run the motors too hard we burn something out. How do we avoid this?
+		 */
+	}
 }
