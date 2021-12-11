@@ -21,7 +21,7 @@ import frc.robot.userinterface.UserInterface;
 public class Robot extends TimedRobot {
   
 	public Robot(){
-    	super(0.04);
+    	// super(0.04);
 	}
 
   /**
@@ -33,7 +33,7 @@ public class Robot extends TimedRobot {
 		Subsystems.driveBase.setDefaultCommand(new TankDrive());
 
 		// Might need to be moved to teleopPeriodic in order to function, but it might also work here.
-		UserInterface.driverController.A.whenHeld(new RotateToBall());
+		UserInterface.driverController.A.whenPressed(new RotateToBall());
 		UserInterface.driverController.B.whenHeld(new AutoIntakeBall());
   	}
 

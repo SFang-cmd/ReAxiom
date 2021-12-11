@@ -38,19 +38,19 @@ public class TankDrive extends CommandBase{
         rightSpeed = UserInterface.driverController.getRightJoystickY();
         
         // minimium speed is the same for any speed cap right now, but if placed under conditionals, then different
-        // leftSpeed *= RobotMap.speedCap;
-        // rightSpeed *= RobotMap.speedCap;
+        leftSpeed *= RobotMap.speedCap;
+        rightSpeed *= RobotMap.speedCap;
         
-        // if(Math.abs(leftSpeed) < 0.1){
-        //     leftSpeed = 0;
-        // }
+        if(Math.abs(leftSpeed) < 0.1){
+            leftSpeed = 0;
+        }
 
-        // if(Math.abs(rightSpeed) < 0.1){
-        //     rightSpeed = 0;
-        // }
+        if(Math.abs(rightSpeed) < 0.1){
+            rightSpeed = 0;
+        }
 
-        // leftSpeedDiff = leftSpeed - leftLastSpeed;
-        // rightSpeedDiff = rightSpeed - rightLastSpeed;
+        leftSpeedDiff = leftSpeed - leftLastSpeed;
+        rightSpeedDiff = rightSpeed - rightLastSpeed;
         
         // // Old acceleration cap basically checked if the speed was over the max change distance,
         // // but I wanted to make just one equationto do that, hence the following:
@@ -59,13 +59,15 @@ public class TankDrive extends CommandBase{
         // // rightSpeed = rightLastSpeed + (Math.exp(((-1)*accelSens*rightSpeedDiff)-0.7) + maxAccel);
 
         // // Old acceleration but with a ternary operator to simplify it
-        // leftSpeed = Math.abs(leftSpeedDiff) > maxAccel ? leftLastSpeed + Math.signum(leftSpeedDiff)*maxAccel : leftSpeed;
-        // rightSpeed = Math.abs(rightSpeedDiff) > maxAccel ? rightLastSpeed + Math.signum(rightSpeedDiff)*maxAccel : rightSpeed;
+        leftSpeed = Math.abs(leftSpeedDiff) > maxAccel ? leftLastSpeed + Math.signum(leftSpeedDiff)*maxAccel : leftSpeed;
+        rightSpeed = Math.abs(rightSpeedDiff) > maxAccel ? rightLastSpeed + Math.signum(rightSpeedDiff)*maxAccel : rightSpeed;
 
-        // leftLastSpeed = leftSpeed;
-        // rightLastSpeed = rightSpeed;
+        leftLastSpeed = leftSpeed;
+        rightLastSpeed = rightSpeed;
 
-        Subsystems.driveBase.tank.tankDrive(leftSpeed, rightSpeed, true);
+        System.out.println(leftSpeed);
+        System.out.println(rightSpeed);
+        Subsystems.driveBase.tank.tankDrive(leftSpeed, rightSpeed);
     }
 
 }

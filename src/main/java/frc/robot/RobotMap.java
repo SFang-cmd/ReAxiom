@@ -5,22 +5,22 @@ public class RobotMap {
     // so that it can be replaced easily later if need be. 
     
     // Speed controls
-    public static double speedCap = 0;
+    public static double speedCap = 0.8;
     
     // Robot Dimensions
     public static double wheelDiameter = 7;
 
     // motor port numbers
     // Left side motor port numbers
-    public static int leftMiddleMasterPort = 34;
+    public static int leftMiddleMasterPort = 2;
 
     public static int leftFrontFollower = 3;
     public static int leftBackFollower = 6;
     
     // Right side motor port numbers
-    public static int rightMiddleMasterPort = 31;
+    public static int rightMiddleMasterPort = 14;
     
-    public static int rightFrontFollower = 35;
+    public static int rightFrontFollower = 5;
     public static int rightBackFollower = 4;
     
     // Intake stuff
