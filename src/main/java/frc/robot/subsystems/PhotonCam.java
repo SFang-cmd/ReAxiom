@@ -28,6 +28,9 @@ public class PhotonCam extends SubsystemBase {
         this.photonData = inst.getTable("photonvision/FrontHDCam");
     }
     
+    /**
+     * prints the values of hasTarget, pitch, yaw, area, and skew
+     */
     public void getAll(){
         try{
             // PhotonLib Strat
@@ -51,6 +54,10 @@ public class PhotonCam extends SubsystemBase {
         }
     }
     
+    /**
+     * gets the yaw data value from the vision target
+     * @return yaw as a double
+     */
     public double getX(){
         // target = frontCam.getLatestResult().getBestTarget();
         // var target = frontCam.getLatestResult().getBestTarget();
@@ -82,6 +89,10 @@ public class PhotonCam extends SubsystemBase {
         // }
     }
 
+    /**
+     * gets the pitch value of vision processing
+     * @return the pitch value as a double
+     */
     public double getY(){
         try{
             return photonData.getEntry("targetPitch").getDouble(0);

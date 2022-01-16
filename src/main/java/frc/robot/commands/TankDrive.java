@@ -37,6 +37,10 @@ public class TankDrive extends CommandBase{
         leftSpeed = UserInterface.driverController.getLeftJoystickY();
         rightSpeed = UserInterface.driverController.getRightJoystickY();
         
+        System.out.println(leftSpeed);
+        System.out.println(rightSpeed);
+        System.out.println("break");
+
         // minimium speed is the same for any speed cap right now, but if placed under conditionals, then different
         leftSpeed *= RobotMap.speedCap;
         rightSpeed *= RobotMap.speedCap;
@@ -65,9 +69,8 @@ public class TankDrive extends CommandBase{
         leftLastSpeed = leftSpeed;
         rightLastSpeed = rightSpeed;
 
-        System.out.println(leftSpeed);
-        System.out.println(rightSpeed);
-        Subsystems.driveBase.tank.tankDrive(leftSpeed, rightSpeed);
+        
+        Subsystems.driveBase.tank.tankDrive(-leftSpeed, -rightSpeed);
     }
 
 }

@@ -8,12 +8,12 @@ import frc.robot.RobotMap;
 public class RotateToBall extends CommandBase {
     
     public double xPos;
-    public double speed;
+    public double weGo;
 
     public RotateToBall(){
         setName("RotateToBall");
         addRequirements(Subsystems.driveBase, Subsystems.frontCam);
-        this.speed = 0;
+        this.weGo = 0;
     }
     public void initialize(){
         xPos = 0.0;
@@ -32,15 +32,16 @@ public class RotateToBall extends CommandBase {
         // }
 
         // Better method, change the cap amounts after we fiddle with it
-        speed = RobotMap.speedCap*RobotMap.cap(xPos, -40, 40)/40;
-        Subsystems.driveBase.tank.tankDrive(speed, -1*speed);
+        // weGo = RobotMap.speedCap*RobotMap.cap(xPos, -40, 40)/40;
+        Subsystems.driveBase.tank.tankDrive(0.5*Math.signum(xPos),-0.5*Math.signum(xPos));
         // System.out.println(xPos);
-        // Subsystems.driveBase.tank.tankDrive(0.7, 0.7);
+        // Subsystems.driveBase.tank.tankDrive(0.5, 0.5);
         // Subsystems.frontCam.getAll();
         // Subsystems.frontCam.getX();
     }
 
     public boolean isFinished(){
+        System.out.println(xPos);
         return (Math.abs(xPos)<=5);
         // return true;
     }

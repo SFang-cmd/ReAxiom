@@ -11,16 +11,19 @@ import org.photonvision.PhotonUtils;
 public class AutoIntakeBall extends SequentialCommandGroup {
 
     public double distance;
+    // public double yaw = Subsystems.photonvision.yaw;
 
     public AutoIntakeBall(){
         setName("AutoIntakeBall");
     }
 
     public void initialize(){
-        distance = PhotonUtils.calculateDistanceToTargetMeters(RobotMap.cameraHeightMeters, RobotMap.ballHeightMeters, RobotMap.cameraDegreesHoriz, Subsystems.frontCam.getY());
+        // distance = PhotonUtils.calculateDistanceToTargetMeters(RobotMap.cameraHeightMeters, RobotMap.ballHeightMeters, RobotMap.cameraDegreesHoriz, Subsystems.frontCam.getY());
+        distance = 5;
     }
     public void execute(){
-        addCommands(new RotateToBall());
-        addCommands(new DriveStraight(distance, 0.5));
+        // addCommands(new RotateToBall());
+        Subsystems.driveBase.tank.curvatureDrive(0.5,0,false);
+        // addCommands(new DriveStraight(distance, 0.5));
     }
 }
