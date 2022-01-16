@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.SPI;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
@@ -23,7 +24,7 @@ public class DriveBase extends SubsystemBase {
     
     */
 
-    // 
+    // Ports for Toaster
     // Declaring the motors for the left side
     public WPI_TalonSRX leftMiddleMaster;
     
@@ -34,7 +35,13 @@ public class DriveBase extends SubsystemBase {
     public WPI_TalonSRX rightMiddleMaster;
 
     public WPI_VictorSPX rightFrontMotor;
-    public WPI_VictorSPX rightBackMotor;
+	public WPI_VictorSPX rightBackMotor;
+	
+	// Ports for Falcon
+	public WPI_TalonFX leftFront;
+	public WPI_TalonFX rightFront;
+	public WPI_TalonFX leftBack;
+	public WPI_TalonFX rightBack;
 
     public SpeedControllerGroup leftMotorGroup;
 	public SpeedControllerGroup rightMotorGroup;
@@ -56,27 +63,36 @@ public class DriveBase extends SubsystemBase {
 		// required for Subsystems and commands as a way to tell program who do communicate with
 		setSubsystem("DriveBase");
 
-		// Declares the instantiated variables that store the motor controller objects
-		// Setting left motors to their respective motor objects
-        this.leftMiddleMaster = new WPI_TalonSRX(RobotMap.leftMiddleMasterPort);
-        this.leftFrontMotor = new WPI_VictorSPX(RobotMap.leftFrontFollower);
-        this.leftBackMotor = new WPI_VictorSPX(RobotMap.leftBackFollower);
-		
-		// Setting right motors to their respective motor objects
-        this.rightMiddleMaster = new WPI_TalonSRX(RobotMap.rightMiddleMasterPort);        
-        this.rightFrontMotor = new WPI_VictorSPX(RobotMap.rightFrontFollower);
-		this.rightBackMotor = new WPI_VictorSPX(RobotMap.rightBackFollower);
-		
-		// Since we use the same type of motors, both think that front is clockwise,
-		// but on the left side, the clockwise rotation causes it to move backward,
-		// thus inverting it causes both motors to move in the correct way
-		// leftMiddleMaster.setInverted(true);
-		// leftFrontMotor.setInverted(true);
-		// leftBackMotor.setInverted(true);
-        
-        this.leftMotorGroup = new SpeedControllerGroup(leftMiddleMaster, leftFrontMotor, leftBackMotor);
-        this.rightMotorGroup = new SpeedControllerGroup(rightMiddleMaster, rightFrontMotor, rightBackMotor);
+		// For the Toaster
 
+		// // Declares the instantiated variables that store the motor controller objects
+		// // Setting left motors to their respective motor objects
+        // this.leftMiddleMaster = new WPI_TalonSRX(RobotMap.leftMiddleMasterPort);
+        // this.leftFrontMotor = new WPI_VictorSPX(RobotMap.leftFrontFollower);
+        // this.leftBackMotor = new WPI_VictorSPX(RobotMap.leftBackFollower);
+		
+		// // Setting right motors to their respective motor objects
+        // this.rightMiddleMaster = new WPI_TalonSRX(RobotMap.rightMiddleMasterPort);        
+        // this.rightFrontMotor = new WPI_VictorSPX(RobotMap.rightFrontFollower);
+		// this.rightBackMotor = new WPI_VictorSPX(RobotMap.rightBackFollower);
+		
+		// // Since we use the same type of motors, both think that front is clockwise,
+		// // but on the left side, the clockwise rotation causes it to move backward,
+		// // thus inverting it causes both motors to move in the correct way
+		// // leftMiddleMaster.setInverted(true);
+		// // leftFrontMotor.setInverted(true);
+		// // leftBackMotor.setInverted(true);
+        
+        // this.leftMotorGroup = new SpeedControllerGroup(leftMiddleMaster, leftFrontMotor, leftBackMotor);
+        // this.rightMotorGroup = new SpeedControllerGroup(rightMiddleMaster, rightFrontMotor, rightBackMotor);
+
+		this.leftFront = new WPI_TalonFX(RobotMap.leftFront);
+		this.rightFront = new WPI_TalonFX(RobotMap.rightFront);
+		this.leftBack = new WPI_TalonFX(RobotMap.leftBack);
+		this.rightBack = new WPI_TalonFX(RobotMap.rightBack);
+
+		this.leftMotorGroup = new SpeedControllerGroup(leftFront, leftBack);
+		this.rightMotorGroup = new SpeedControllerGroup(rightFront, rightBack);
 		// Building the actual robot drive train
 		this.tank = new DifferentialDrive(leftMotorGroup, rightMotorGroup);
 		

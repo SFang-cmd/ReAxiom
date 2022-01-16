@@ -11,6 +11,11 @@ public class RobotMap {
     public static double wheelDiameter = 7;
 
     // motor port numbers
+    public enum RobotType{
+        COMP, PBOT, TOASTER 
+    }
+    
+    
     // Left side motor port numbers
     public static int leftMiddleMasterPort = 2;
 
@@ -22,12 +27,21 @@ public class RobotMap {
     
     public static int rightFrontFollower = 5;
     public static int rightBackFollower = 4;
+
+    // Falcon drive ports
+    public static int leftFront = 4;
+    public static int rightFront = 3;
+    public static int leftBack = 2;
+    public static int rightBack = 1;
+
     
     // Intake stuff
     // public static int intakePivot = 46;
     // public static int intakeLeftArm = 9;
     // public static int intakeRightArm = 10;
     // public static int lift = 11;
+    public static int extensionMotorPort = 422;
+    public static int intakeMotorPort = 422;
 
     // Dimensions for Vision Calculations
     public static double cameraHeightMeters = 0.25;
