@@ -21,7 +21,7 @@ import frc.robot.userinterface.UserInterface;
 public class Robot extends TimedRobot {
   
 	public Robot(){
-    	// super(0.04);
+    	super(0.08);
 	}
 
   /**

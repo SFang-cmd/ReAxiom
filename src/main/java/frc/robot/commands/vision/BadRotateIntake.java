@@ -42,7 +42,7 @@ public class BadRotateIntake extends CommandBase {
         }
     }
     
-    public boolean IsFinished() {
+    public boolean isFinished() {
         return (Math.abs(yaw) <0.3 && pitch < -17);
     }
 }

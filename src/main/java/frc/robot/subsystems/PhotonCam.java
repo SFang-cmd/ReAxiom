@@ -25,7 +25,7 @@ public class PhotonCam extends SubsystemBase {
         
         // ONLY USE THE BELOW IF THE PHOTONLIB STUFF ISN'T GIVING CORRECT VALUES
         this.inst = NetworkTableInstance.getDefault();
-        this.photonData = inst.getTable("photonvision/FrontHDCam");
+        this.photonData = inst.getTable("photonvision/SnakeEyesCam");
     }
     
     /**
@@ -43,7 +43,7 @@ public class PhotonCam extends SubsystemBase {
             // Network Tables Strat
             // inst.flush(); // needed?
             // inst = NetworkTableInstance.getDefault(); // needed?
-            photonData = inst.getTable("photonvision/FrontHDCam");
+            photonData = inst.getTable("photonvision/SnakeEyesCam");
             System.out.println(photonData.getEntry("hasTarget").getDouble(0));
             System.out.println(photonData.getEntry("targetPitch").getDouble(0));
             System.out.println(photonData.getEntry("targetYaw").getDouble(0));
@@ -66,9 +66,10 @@ public class PhotonCam extends SubsystemBase {
         // inst.flush(); // needed?
         // inst = NetworkTableInstance.getDefault(); // needed?
         // photonData = inst.getTable("photonvision/FrontHDCam");
+        
         yaw = photonData.getEntry("targetYaw");
         // System.out.println(yaw.getDouble(0));
-        return yaw.getDouble(0);
+        return yaw.getDouble(5);
 
         // If the above code doesn't work
         // try{

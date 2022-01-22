@@ -16,7 +16,7 @@ public class RotateToBall extends CommandBase {
         this.weGo = 0;
     }
     public void initialize(){
-        xPos = 0.0;
+        // xPos = 0.0;
     }
 
     // In the future, add turn command to make it more efficient,
@@ -33,16 +33,18 @@ public class RotateToBall extends CommandBase {
 
         // Better method, change the cap amounts after we fiddle with it
         // weGo = RobotMap.speedCap*RobotMap.cap(xPos, -40, 40)/40;
-        Subsystems.driveBase.tank.tankDrive(0.5*Math.signum(xPos),-0.5*Math.signum(xPos));
-        // System.out.println(xPos);
+        // double turnSpeed = xPos*0.025;
+        Subsystems.driveBase.tank.tankDrive(0.5, -0.5);
+        // Subsystems.driveBase.tank.tankDrive(0.4,0.4);
+        System.out.println(Math.abs(xPos));
         // Subsystems.driveBase.tank.tankDrive(0.5, 0.5);
         // Subsystems.frontCam.getAll();
         // Subsystems.frontCam.getX();
     }
 
     public boolean isFinished(){
-        System.out.println(xPos);
-        return (Math.abs(xPos)<=5);
+        System.out.println(Math.abs(xPos));
+        return (Math.abs(xPos) <= 10);
         // return true;
     }
 }
