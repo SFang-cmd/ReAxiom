@@ -8,7 +8,7 @@ public class RobotMap {
     public static double speedCap = 0.8;
     
     // Robot Dimensions
-    public static double wheelDiameter = 7;
+    public static double wheelDiameter = 8;
 
     // motor port numbers
     public enum RobotType{
@@ -44,9 +44,9 @@ public class RobotMap {
     public static int intakeMotorPort = 422;
 
     // Dimensions for Vision Calculations
-    public static double cameraHeightMeters = 0.25;
-    public static double ballHeightMeters = 0.1;
-    public static double cameraDegreesHoriz = 0;
+    public static double cameraHeightMeters = 0.6604;
+    public static double ballHeightMeters = 0.10795;
+    public static double cameraDegreesHoriz = -33;
 
     /**
      * @param inches Inches to convert.

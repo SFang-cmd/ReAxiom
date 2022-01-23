@@ -35,6 +35,7 @@ public class Robot extends TimedRobot {
 		// Might need to be moved to teleopPeriodic in order to function, but it might also work here.
 		UserInterface.driverController.A.whenPressed(new RotateToBall());
 		UserInterface.driverController.B.whenPressed(new BadRotateIntake());
+		UserInterface.driverController.X.whenPressed(new FollowBall());
   	}
 
 	@Override

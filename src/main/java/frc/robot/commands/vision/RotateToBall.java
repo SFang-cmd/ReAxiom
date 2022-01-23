@@ -23,28 +23,30 @@ public class RotateToBall extends CommandBase {
     // especially with PID; for now, uses tank drive to turn until the 
     public void execute(){
         xPos = Subsystems.frontCam.getX();
+        double turnSpeed = RobotMap.cap(Math.abs(xPos)*0.04, 0.4, 0.8);
+        turnSpeed *= Math.signum(xPos);
+        Subsystems.driveBase.tank.tankDrive(turnSpeed, -turnSpeed);
+        // Subsystems.driveBase.tank.tankDrive(0.4,0.4);
+        System.out.println(Math.abs(xPos));
         // if(xPos > 0.1){
-        //     Subsystems.driveBase.tank.tankDrive(0.1, -0.1);
-        // } else if(xPos < 0.1){
-        //     Subsystems.driveBase.tank.tankDrive(-0.1, 0.1);
+            //     Subsystems.driveBase.tank.tankDrive(0.1, -0.1);
+            // } else if(xPos < 0.1){
+                //     Subsystems.driveBase.tank.tankDrive(-0.1, 0.1);
         // } else {
         //     Subsystems.driveBase.stopMotors();
         // }
 
         // Better method, change the cap amounts after we fiddle with it
         // weGo = RobotMap.speedCap*RobotMap.cap(xPos, -40, 40)/40;
-        // double turnSpeed = xPos*0.025;
-        Subsystems.driveBase.tank.tankDrive(0.5, -0.5);
-        // Subsystems.driveBase.tank.tankDrive(0.4,0.4);
-        System.out.println(Math.abs(xPos));
+        // double turnSpeed = xPos*0.04;
         // Subsystems.driveBase.tank.tankDrive(0.5, 0.5);
         // Subsystems.frontCam.getAll();
         // Subsystems.frontCam.getX();
     }
 
     public boolean isFinished(){
-        System.out.println(Math.abs(xPos));
-        return (Math.abs(xPos) <= 10);
-        // return true;
+        // System.out.println(Math.abs(xPos));
+        // return (Math.abs(xPos) <= 1);
+        return false;
     }
 }

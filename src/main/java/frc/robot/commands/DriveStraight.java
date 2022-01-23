@@ -24,10 +24,11 @@ public class DriveStraight extends CommandBase {
 
     public void execute(){
         Subsystems.driveBase.tank.curvatureDrive(speed, 0, false);
+        System.out.println(Subsystems.driveBase.getLeftEncoder());
     }
 
     public boolean isFinished(){        
-        return (Subsystems.driveBase.getLeftEncoder() > ticks) || (Subsystems.driveBase.getRightEncoder() > ticks);
+        return ((Math.abs(Subsystems.driveBase.getLeftEncoder()) > ticks) || (Math.abs(Subsystems.driveBase.getRightEncoder()) > ticks));
     }
 
     public void end(boolean interrupted){
